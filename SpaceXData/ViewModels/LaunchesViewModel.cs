@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SpaceXData.Services;
 using SpaceXData.Services.App;
 using SpaceXData.Services.Dtos;
@@ -8,7 +10,7 @@ using SpaceXData.Views;
 
 namespace SpaceXData.ViewModels;
 
-public class LaunchesViewModel : BaseViewModel
+public partial class LaunchesViewModel : BaseViewModel
 {
     private readonly ICoreService _coreService;
     private readonly INavigationService _navigationService;
@@ -20,24 +22,13 @@ public class LaunchesViewModel : BaseViewModel
         _navigationService = navigationService;
         _spacexService = spaceXService;
 
-        GoToDetailCommand = new Command(async (param) => await GoToDetail((Launch)param));
+        GoToDetailCommand = new AsyncRelayCommand<Launch>((param) => GoToDetail(param));
 
         LaunchesResponse = new ObservableCollection<GetLaunchesResponse>();
     }
 
+    [ObservableProperty]
     private ObservableCollection<GetLaunchesResponse> _launchesResponse;
-    public ObservableCollection<GetLaunchesResponse> LaunchesResponse
-    {
-        get { return _launchesResponse; }
-        set
-        {
-            if (_launchesResponse != value)
-            {
-                _launchesResponse = value;
-                OnPropertyChanged();
-            }
-        }
-    }
 
     public ICommand GoToDetailCommand { private set; get; }
 

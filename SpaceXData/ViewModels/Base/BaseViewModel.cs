@@ -1,16 +1,8 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SpaceXData.ViewModels.Base;
 
-public abstract class BaseViewModel : INotifyPropertyChanged
+public abstract class BaseViewModel : ObservableObject
 {
     public abstract Task Initialize();
-
-    public event PropertyChangedEventHandler PropertyChanged;    
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }

@@ -1,41 +1,19 @@
-﻿using SpaceXData.Services.App;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SpaceXData.Services.App;
 using SpaceXData.Services.Dtos;
 using SpaceXData.ViewModels.Base;
 
 namespace SpaceXData.ViewModels;
 
-public class LaunchDetailViewModel : BaseViewModel, IQueryAttributable
+public partial class LaunchDetailViewModel : BaseViewModel, IQueryAttributable
 {
     private readonly ICoreService _coreService;
 
-    private string _title;
-    public string Title
-    {
-        get { return _title; }
-        set
-        {
-            if (_title != value)
-            {
-                _title = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    public string _title;
 
+    [ObservableProperty]
     private Launch _launch;
-
-    public Launch Launch
-    {
-        get { return _launch; }
-        set
-        {
-            if (_launch != value)
-            {
-                _launch = value;
-                OnPropertyChanged();
-            }
-        }
-    }
 
     public LaunchDetailViewModel(ICoreService coreService)
     {
