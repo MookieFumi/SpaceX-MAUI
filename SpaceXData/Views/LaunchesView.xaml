@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:SpaceXData.ViewModels"
+             xmlns:views="clr-namespace:SpaceXData.Views"
+             xmlns:dtos="clr-namespace:SpaceXData.Services.Dtos"
+             xmlns:controls="clr-namespace:SpaceXData.Controls"
+             x:DataType="viewmodel:LaunchesViewModel"
+             x:Class="SpaceXData.Views.LaunchesView"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding LaunchesResponse}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="dtos:GetLaunchesResponse">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout Margin="20,10,0,0">
+                            <Label  FontSize="Header" FontAttributes="Bold">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Launches of the year "/>
+                                        <Span Text="{Binding Year}"/>
+                                        <Span Text=" (Total no. "/>
+                                        <Span Text="{Binding Launches.Count}"/>
+                                        <Span Text=")"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </HorizontalStackLayout>                        
+                        <CollectionView
+                                    HeightRequest="140"
+                                    ItemsSource="{Binding Launches}"
+                                    Margin="10"
+                                    HorizontalScrollBarVisibility="Always">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout
+                                            Orientation="Horizontal"
+                                            ItemSpacing="10" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="dtos:Launch">
+                                        <VerticalStackLayout VerticalOptions="CenterAndExpand">
+                                            <VerticalStackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LaunchesViewModel}}, Path=GoToDetailCommand}" CommandParameter="{Binding .}" />
+                                            </VerticalStackLayout.GestureRecognizers>
+                                            <Image
+                                                Margin="10"
+                                                Source="{Binding Links.MissionPatchSmall}"
+                                                WidthRequest="80"
+                                                HeightRequest="80"
+                                                Aspect="AspectFit">
+                                            </Image>
+                                            <Label
+                                                Text="{Binding MissionName}"
+                                                FontSize="Small"
+                                                HorizontalTextAlignment="Center"
+                                                MaxLines="2"
+                                                WidthRequest="100"/>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </ScrollView>
+</views:BaseView>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:SpaceXData.ViewModels"
+             xmlns:views="clr-namespace:SpaceXData.Views"
+             xmlns:controls="clr-namespace:SpaceXData.Controls" xmlns:dtos="clr-namespace:SpaceXData.Services.Dtos"
+             x:Class="SpaceXData.Views.LaunchDetailView"
+             x:DataType="viewmodel:LaunchDetailViewModel"
+                BackgroundColor="White"
+             Title="{Binding Title}">
+
+<ScrollView Padding="10">
+    <Grid VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                Grid.Row="0"
+                Grid.Column="1"
+                Source="{Binding Launch.Links.MissionPatch}"
+                HeightRequest="150" />
+            <VerticalStackLayout
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                Grid.Row="0"
+                Grid.Column="0">
+                <controls:CustomLabel Title="Mission name: " Text="{Binding Launch.MissionName}" />
+                <controls:CustomLabel Title="Launch year: " Text="{Binding Launch.LaunchYear}" />
+                <controls:CustomLabel Title="Launch Date (UTC): " Text="{Binding Launch.LaunchDateUtc, StringFormat='{0:dd/MM/yyyy}'}" />
+                <controls:CustomLabel Title="Launch site: " Text="{Binding Launch.LaunchSite.SiteNameLong}" />
+                <!--<HorizontalStackLayout>
+                    <controls:CustomLabel
+                        Title="Launch status: "
+                        Text="{Binding Launch.LaunchSuccess, Converter={StaticResource BooleanToTextConverter}}"
+                        Style="{Binding Launch.LaunchSuccess, Converter={StaticResource BooleanToStyleConverter}}" />
+                    <Image
+                        VerticalOptions="Center"
+                        Source="{Binding Launch.LaunchSuccess, Converter={StaticResource BooleanToIconConverter}}"
+                        WidthRequest="20"
+                        HeightRequest="20"/>
+                </HorizontalStackLayout>-->
+                <controls:CustomLabel Title="Rocket name: " Text="{Binding Launch.Rocket.RocketName}"  />
+                <controls:CustomLabel Title="Rocket type: " Text="{Binding Launch.Rocket.RocketType}" />
+            </VerticalStackLayout>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding Launch.Details}"
+                FontSize="Medium"/>            
+        </Grid>
+    </ScrollView>
+</views:BaseView>

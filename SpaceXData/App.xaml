@@ -1,0 +1,19 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SpaceXData"
+             xmlns:converters="clr-namespace:SpaceXData.Converters"
+             x:Class="SpaceXData.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToIconConverter x:Key="BooleanToIconConverter"/>
+            <converters:BooleanToTextConverter x:Key="BooleanToTextConverter"/>
+            <converters:BooleanToStyleConverter x:Key="BooleanToStyleConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+
